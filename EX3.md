@@ -69,45 +69,69 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 
 
 ### QUERY:
-
+```sql
+SELECT ENAME FROM EMP WHERE sal > (SELECT sal FROM emp WHERE empno = 7566);
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/c84db917-8067-4cc6-b12b-157717623b75)
+
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
 
 ### QUERY:
-
+```sql
+SELECT ename,job,sal FROM emp WHERE sal = (SELECT MIN(sal) FROM emp);
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/ccc4be01-8b31-45f7-a0cf-3e0b670668b2)
+
 
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
 
 ### QUERY:
-
+```sql
+SELECT ename,job FROM emp WHERE deptno = 10 AND job IN (SELECT job FROM emp WHERE job = 'sales');
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/6970deb9-5de6-4727-bd8f-d2a538a3d703)
 
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
 
 ### QUERY:
-
+```sql
+CREATE VIEW empv AS SELECT empno,ename,job from emp WHERE deptno = 10;
+SELECT ename FROM empv;
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/7a476378-8533-4507-886d-17f06f3cc483)
 
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
 
 ### QUERY:
-
+```sql
+CREATE VIEW empv30 AS SELECT empno AS "Employee Number",ename AS "Emplo
+yee Name",sal AS "Salary" from emp WHERE deptno = 30;
+SELECT * FROM empv30;
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/4b2f133e-ae76-44b6-8128-f0329494ae06)
 
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
 
 ### QUERY:
-
+```sql
+UPDATE empv SET sal = sal * 1.1 WHERE job = 'CLERK';
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/5d1b223e-86a4-4413-9a6a-c6a3a58f1da9)
+
 
 ## Create a Customer1 Table
 ```sql
@@ -140,28 +164,54 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
 
 ### QUERY:
-
+```sql
+SELECT salesman.name AS "Salesman",customer1.cust_name AS "Customer Name",salesman.city AS "City" from salesman INNER JOIN customer1 ON salesman.city = customer1.city;
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/d922fca7-a4a0-4867-9bf3-81b3602ef49d)
+
 
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
 
 
 ### QUERY:
-
+```sql
+SELECT customer1.cust_name AS "Customer Name",customer1.city AS "Customer City",salesman.name AS "Salesman",salesman.commission AS "Commission" FROM salesman INNER JOIN customer1 ON salesman.salesman_id = customer1.salesman_id WHERE salesman.commission  > 0.13;
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/3942da5c-1ed7-4c05-9c22-53e0054b5dd6)
+
 
 ### Q9) Perform Natural join on both tables
 
 ### QUERY:
-
+```sql
+SELECT * from customer1 natural join salesman;
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/14e9dbc8-76ab-41e1-ac4f-f97f3ad310bf)
+
 
 ### Q10) Perform Left and right join on both tables
-
+### LEFT JOIN
 ### QUERY:
-
+```sql
+SELECT * FROM salesman LEFT JOIN customer1 ON salesman.salesman_id = customer1.salesman_id;
+```
 
 ### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/729af478-32e1-4b36-be38-d04d271392c3)
+
+### RIGHT JOIN
+### QUERY:
+```sql
+ SELECT * FROM salesman RIGHT JOIN customer1 ON salesman.salesman_id = customer1.salesman_id;
+```
+
+### OUTPUT:
+![image](https://github.com/Kousalya22008930/EX-3-SubQueries-Views-and-Joins/assets/119389108/3c8b6152-4fa0-4b31-a808-e83ba30ec1bb)
+
+
